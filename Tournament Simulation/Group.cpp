@@ -20,7 +20,7 @@ void Group::playGroupMatch()
 		{
 			std::cout << teams[i].name << " vs " << teams[j].name << std::endl;
 
-			constexpr int maxRandomOffset = 10;
+			constexpr int maxRandomOffset = 500;
 			std::random_device rd;
 			std::mt19937 rng(rd());
 			std::uniform_int_distribution<int> dist(-maxRandomOffset, maxRandomOffset);
@@ -30,18 +30,37 @@ void Group::playGroupMatch()
 			if (matchResult > 0)
 			{
 				std::cout << "Match result: " << teams[i].name << " wins" << std::endl;
-				// TODO: Add 3 points to teams[i]
+				teams[i].record.wins++;
+				teams[i].record.points += 3;
+				teams[j].record.losses++;
 			}
 			else if (matchResult < 0)
 			{
 				std::cout << "Match result: " << teams[j].name << " wins" << std::endl;
-				// TODO: Add 3 points to teams[j]
+				teams[j].record.wins++;
+				teams[j].record.points += 3;
+				teams[i].record.losses++;
 			}
 			else
 			{
 				std::cout << "Match result: Draw" << std::endl;
-				// TODO: Add 1 point to teams[i] and teams[j]
+				teams[i].record.draws++;
+				teams[i].record.points++;
+				teams[j].record.draws++;
+				teams[j].record.points++;
 			}
 		}
+	}
+
+	std::sort(teams.begin(), teams.end(),
+	          [](const Team& a, const Team& b) { return a.record.points > b.record.points; });
+
+	for (int i = 0; i < 2; i++)
+	{
+		std::cout << std::endl;
+		std::cout << "-----------------------------------------------" << std::endl;
+		std::cout << "------------------Advancement------------------: " << teams[i].name << std::endl;
+		std::cout << "-----------------------------------------------" << std::endl;
+		std::cout << std::endl;
 	}
 }
