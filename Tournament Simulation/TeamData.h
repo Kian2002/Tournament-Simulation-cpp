@@ -26,7 +26,7 @@ std::vector<Team> teams = {
 	{"Peru", 1561.2},
 	{"Sweden", 1558.7},
 	{"Poland", 1553.76},
-	{"IR Iran", 1553.23},
+	{"Iran", 1553.23},
 	{"Serbia", 1541.52},
 	{"Wales", 1538.95},
 	{"Korea Republic", 1536.01},
