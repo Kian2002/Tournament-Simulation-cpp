@@ -1,7 +1,7 @@
 #include "Team.h"
 
-Team::Team(const std::string& name, double rating)
+Team::Team(const std::string& name, const double rating)
 {
 	this->name = name;
-	this->rating = rating;
+	this->record.rating = rating;
 }

@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Group.cpp" />
+    <ClCompile Include="Record.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="Tournament Simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Group.h" />
+    <ClInclude Include="Record.h" />
     <ClInclude Include="Team.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
