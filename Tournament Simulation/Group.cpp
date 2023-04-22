@@ -25,7 +25,7 @@ void Group::playGroupMatch()
 			std::mt19937 rng(rd());
 			std::uniform_int_distribution<int> dist(-maxRandomOffset, maxRandomOffset);
 
-			const int matchResult = teams[i].rating - teams[j].rating + dist(rng);
+			const double matchResult = teams[i].rating - teams[j].rating + dist(rng);
 
 			if (matchResult > 0)
 			{
