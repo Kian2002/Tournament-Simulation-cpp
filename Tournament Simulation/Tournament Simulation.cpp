@@ -3,12 +3,13 @@
 #include <iostream>
 
 #include "Group.h"
+#include "TeamData.h"
 
 int main()
 {
-	const std::vector<Team> teams = {
-		Team("Brazil", 1834.21), Team("Germany", 1647.42), Team("Italy", 1713.66), Team("Argentina", 1838.38)
-	};
+	std::sort(teams.begin(), teams.end(),
+	          [](const Team& a, const Team& b) { return a.record.rating > b.record.rating; });
+
 	Group group(teams);
 	group.playGroupMatch();
 }

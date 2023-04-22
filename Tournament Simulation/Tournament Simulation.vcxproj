@@ -137,6 +137,9 @@
     <ClInclude Include="Record.h" />
     <ClInclude Include="Team.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TeamData.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
