@@ -7,7 +7,12 @@
 
 Group::Group() = default;
 
-void Group::playGroupMatch(std::vector<Team> teams)
+Group::Group(const std::vector<Team>& teams)
+{
+	this->teams = teams;
+}
+
+void Group::playGroupMatch()
 {
 	for (int i = 0; i < static_cast<int>(teams.size()); i++)
 	{

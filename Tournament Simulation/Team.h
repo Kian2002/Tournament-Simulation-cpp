@@ -5,7 +5,7 @@
 class Team
 {
 public:
-	Team(const std::string& name, int rating);
+	Team(const std::string& name, double rating);
 	std::string name;
-	int rating;
+	double rating;
 };
