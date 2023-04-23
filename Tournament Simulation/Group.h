@@ -11,4 +11,5 @@ public:
 	Group(const std::vector<Team>& teams);
 	std::vector<Team> teams;
 	void playGroupMatch();
+	int name;
 };

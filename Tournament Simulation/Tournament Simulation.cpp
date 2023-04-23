@@ -21,6 +21,7 @@ int main()
 	for (int i = 0; i < 8; i++)
 	{
 		Group group;
+		group.name = i + 1;
 		group.teams.push_back(seededTeams[groupIndex]);
 		groups.push_back(group);
 		groupIndex++;
