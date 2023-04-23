@@ -7,7 +7,7 @@ struct Record
 	int losses = 0;
 	int goalsFor = 0;
 	int goalsAgainst = 0;
-	int goalDifference = 0;
+	int goalDifference = goalsFor - goalsAgainst;
 	int points = 0;
 	double rating = 0;
 };
