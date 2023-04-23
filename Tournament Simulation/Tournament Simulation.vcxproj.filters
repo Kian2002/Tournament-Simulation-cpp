@@ -24,9 +24,6 @@
     <ClCompile Include="Team.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Record.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Group.h">

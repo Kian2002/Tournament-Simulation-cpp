@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Group.cpp" />
-    <ClCompile Include="Record.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="Tournament Simulation.cpp" />
   </ItemGroup>

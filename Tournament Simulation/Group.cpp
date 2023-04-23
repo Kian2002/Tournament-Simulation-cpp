@@ -12,6 +12,14 @@ Group::Group(const std::vector<Team>& teams)
 	this->teams = teams;
 }
 
+int Group::simulateGoals(const double avgGoals)
+{
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::poisson_distribution<int> dist(avgGoals);
+	return dist(rng);
+};
+
 void Group::playGroupMatch()
 {
 	std::cout << "-----------------------------------------------" << std::endl;
@@ -25,17 +33,27 @@ void Group::playGroupMatch()
 		{
 			std::cout << teams[i].name << " vs " << teams[j].name << std::endl;
 
-			constexpr int maxRandomOffset = 500;
-			std::random_device rd;
-			std::mt19937 rng(rd());
-			std::uniform_int_distribution<int> dist(-maxRandomOffset, maxRandomOffset);
+			constexpr double avgGoals = 2.69; // Average goals per game in the 2022 World Cup
 
-			const double matchResult = teams[i].record.rating - teams[j].record.rating + dist(rng);
+			const int goalsI = simulateGoals(avgGoals);
+			const int goalsJ = simulateGoals(avgGoals);
+
+			std::cout << "Goals: " << goalsI << " - " << goalsJ << std::endl;
+
+			// update team records
+			teams[i].record.goalsFor += goalsI;
+			teams[i].record.goalsAgainst += goalsJ;
+			teams[j].record.goalsFor += goalsJ;
+			teams[j].record.goalsAgainst += goalsI;
+
+			const int matchResult = goalsI - goalsJ;
 
 			if (matchResult > 0)
 			{
 				std::cout << "Match result: " << teams[i].name << " wins" << std::endl;
 				std::cout << std::endl;
+
+				// update team records
 				teams[i].record.wins++;
 				teams[i].record.points += 3;
 				teams[j].record.losses++;
@@ -44,6 +62,8 @@ void Group::playGroupMatch()
 			{
 				std::cout << "Match result: " << teams[j].name << " wins" << std::endl;
 				std::cout << std::endl;
+
+				// update team records
 				teams[j].record.wins++;
 				teams[j].record.points += 3;
 				teams[i].record.losses++;
@@ -52,6 +72,8 @@ void Group::playGroupMatch()
 			{
 				std::cout << "Match result: Draw" << std::endl;
 				std::cout << std::endl;
+
+				// update team records
 				teams[i].record.draws++;
 				teams[i].record.points++;
 				teams[j].record.draws++;
@@ -60,8 +82,27 @@ void Group::playGroupMatch()
 		}
 	}
 
+	// sort teams by points
 	std::sort(teams.begin(), teams.end(),
 	          [](const Team& a, const Team& b) { return a.record.points > b.record.points; });
+
+	// tiebreakers
+	// 1. goal difference
+
+	for (int i = 0; i < static_cast<int>(teams.size()); i++)
+	{
+		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
+		{
+			// check if teams have the same number of points
+			if (teams[i].record.points == teams[j].record.points)
+			{
+				if (teams[i].record.goalDifference < teams[j].record.goalDifference)
+				{
+					std::swap(teams[i], teams[j]);
+				}
+			}
+		}
+	}
 
 	for (int i = 0; i < 2; i++)
 	{
