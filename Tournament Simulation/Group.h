@@ -10,7 +10,7 @@ public:
 	Group();
 	Group(const std::vector<Team>& teams);
 	std::vector<Team> teams;
-	void playGroupMatch();
+	std::vector<Team> playGroupMatch();
 	int simulateGoals(double avgGoals);
 	int name;
 };
