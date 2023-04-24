@@ -20,7 +20,7 @@ int Group::simulateGoals(const double avgGoals)
 	return dist(rng);
 };
 
-void Group::playGroupMatch()
+std::vector<Team> Group::playGroupMatch()
 {
 	std::cout << "-----------------------------------------------" << std::endl;
 	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
@@ -43,8 +43,10 @@ void Group::playGroupMatch()
 			// update team records
 			teams[i].record.goalsFor += goalsI;
 			teams[i].record.goalsAgainst += goalsJ;
+			teams[i].record.goalDifference += goalsI - goalsJ;
 			teams[j].record.goalsFor += goalsJ;
 			teams[j].record.goalsAgainst += goalsI;
+			teams[j].record.goalDifference += goalsJ - goalsI;
 
 			const int matchResult = goalsI - goalsJ;
 
@@ -104,6 +106,8 @@ void Group::playGroupMatch()
 		}
 	}
 
+	// TODO: implement other tiebreakers here for a more accurate simulation
+
 	for (int i = 0; i < 2; i++)
 	{
 		std::cout << "-----------------------------------------------" << std::endl;
@@ -111,4 +115,6 @@ void Group::playGroupMatch()
 		std::cout << "-----------------------------------------------" << std::endl;
 		std::cout << std::endl;
 	}
+
+	return teams;
 }
