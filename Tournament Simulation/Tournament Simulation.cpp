@@ -27,12 +27,14 @@ int main()
 		groupIndex++;
 	}
 
+	// shuffle the teams so that the groups are more random
 	constexpr int maxRandomOffset = 10;
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(-maxRandomOffset, maxRandomOffset);
 	std::shuffle(teams.begin(), teams.end(), rng);
 
+	// add the remaining teams to the groups
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -41,9 +43,42 @@ int main()
 		}
 	}
 
+	std::vector<Team> teamsThatAdvanceGroupStage;
 
 	for (int i = 0; i < 8; i++)
 	{
-		groups[i].playGroupMatch();
+		const std::vector<Team> teams = groups[i].playGroupMatch();
+		teamsThatAdvanceGroupStage.push_back(teams[0]);
+		teamsThatAdvanceGroupStage.push_back(teams[1]);
+	}
+
+	std::vector<Group> knockoutGroups;
+
+	for (int i = 0; i < 8; i++)
+	{
+		Group group;
+		group.name = i + 1;
+		knockoutGroups.push_back(group);
+	}
+
+	// add the teams that advance to the knockout stage to the knockout groups
+	// the teams are added in the following order by index:
+	// (0,3) (4,7) (8,11) (12,15) (1,2) (5,6) (9,10) (13,14)
+	int team_index = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		knockoutGroups[i].teams.push_back(teamsThatAdvanceGroupStage[team_index]);
+		knockoutGroups[i].teams.push_back(teamsThatAdvanceGroupStage[team_index + 3]);
+		knockoutGroups[i + 4].teams.push_back(teamsThatAdvanceGroupStage[team_index + 1]);
+		knockoutGroups[i + 4].teams.push_back(teamsThatAdvanceGroupStage[team_index + 2]);
+		team_index += 4;
+	}
+
+	// print the groups TODO: DELETE ME
+	for (Group group : knockoutGroups)
+	{
+		std::cout << "Group " << group.name << std::endl;
+		std::cout << "Team 1: " << group.teams[0].name << std::endl;
+		std::cout << "Team 2: " << group.teams[1].name << std::endl;
 	}
 }
