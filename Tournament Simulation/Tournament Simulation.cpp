@@ -3,8 +3,12 @@
 #include "Group.h"
 #include "TeamData.h"
 
+void welcome();
+
 int main()
 {
+	welcome();
+
 	std::vector<Team> seededTeams;
 
 	for (int i = 0; i < 8; i++)
@@ -81,4 +85,24 @@ int main()
 		std::cout << "Team 1: " << group.teams[0].name << std::endl;
 		std::cout << "Team 2: " << group.teams[1].name << std::endl;
 	}
+}
+
+void welcome()
+{
+	std::cout << R"(
+____    __    ____  _______  __        ______   ______   .___  ___.  _______  
+\   \  /  \  /   / |   ____||  |      /      | /  __  \  |   \/   | |   ____|  
+ \   \/    \/   /  |  |__   |  |     |  ,----'|  |  |  | |  \  /  | |  |__
+  \            /   |   __|  |  |     |  |     |  |  |  | |  |\/|  | |   __|
+   \    /\    /    |  |____ |  `----.|  `----.|  `--'  | |  |  |  | |  |____ 
+    \__/  \__/     |_______||_______| \______| \______/  |__|  |__| |_______| 
+                                                                                                        
+)";
+	std::cout << std::endl;
+	std::cout << "                to the tournament simulator!" << std::endl;
+	std::cout << "                This program will simulate a FIFA World Cup tournament" << std::endl;
+	std::cout << "                Starting off with the group stage: " << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 }
