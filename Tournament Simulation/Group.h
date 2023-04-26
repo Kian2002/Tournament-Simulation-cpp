@@ -15,5 +15,6 @@ public:
 	int simulateGoals(double avgGoals);
 	void checkForTies();
 	void simulateMatch();
+	void penaltyShootout();
 	int name;
 };
