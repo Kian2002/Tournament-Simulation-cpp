@@ -11,6 +11,7 @@ public:
 	Group(const std::vector<Team>& teams);
 	std::vector<Team> teams;
 	std::vector<Team> playGroupMatch();
+	std::vector<Team> playKnockoutMatch();
 	int simulateGoals(double avgGoals);
 	void checkForTies();
 	void simulateMatch();

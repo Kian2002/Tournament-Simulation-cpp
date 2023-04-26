@@ -78,12 +78,10 @@ int main()
 		team_index += 4;
 	}
 
-	// print the groups TODO: DELETE ME
+
 	for (Group group : knockoutGroups)
 	{
-		std::cout << "Group " << group.name << std::endl;
-		std::cout << "Team 1: " << group.teams[0].name << std::endl;
-		std::cout << "Team 2: " << group.teams[1].name << std::endl;
+		group.playKnockoutMatch();
 	}
 }
 

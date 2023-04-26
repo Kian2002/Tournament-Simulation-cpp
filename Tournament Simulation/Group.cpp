@@ -127,3 +127,36 @@ std::vector<Team> Group::playGroupMatch()
 
 	return teams;
 }
+
+std::vector<Team> Group::playKnockoutMatch()
+{
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+
+	simulateMatch();
+
+	// TODO: implement penalty shootout simulation
+	// if scores are tied after match, simulate penalty shootout
+
+	// put winner at index 0
+	for (int i = 0; i < static_cast<int>(teams.size()); i++)
+	{
+		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
+		{
+			if (teams[i].record.points < teams[j].record.points)
+			{
+				std::swap(teams[i], teams[j]);
+			}
+		}
+	}
+
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << teams[0].name << " Moves on to the Quarterfinals" << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	return teams;
+}
