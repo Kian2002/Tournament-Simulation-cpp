@@ -128,8 +128,49 @@ std::vector<Team> Group::playGroupMatch()
 	return teams;
 }
 
+void Group::penaltyShootout()
+{
+	std::cout << "-----------------Looks like were going to penalties-----------------" << std::endl;
+	int penaltyKicks = 5;
+
+	while (penaltyKicks > 0)
+	{
+		// 0.75 is the average chance of scoring a penalty kick
+		constexpr double avgPenaltyKick = 0.75;
+
+		const int penaltyKickI = simulateGoals(avgPenaltyKick);
+		const int penaltyKickJ = simulateGoals(avgPenaltyKick);
+
+		// update team records
+		teams[0].record.goalsFor += penaltyKickI;
+		teams[0].record.goalsAgainst += penaltyKickJ;
+		teams[0].record.goalDifference += penaltyKickI - penaltyKickJ;
+		teams[0].record.points += penaltyKickI;
+
+		teams[1].record.goalsFor += penaltyKickJ;
+		teams[1].record.goalsAgainst += penaltyKickI;
+		teams[1].record.goalDifference += penaltyKickJ - penaltyKickI;
+		teams[1].record.points += penaltyKickJ;
+
+		// continue penalty kicks if teams are still tied
+		if (penaltyKicks == 1 && teams[0].record.points == teams[1].record.points)
+		{
+			penaltyKicks++;
+		}
+
+		penaltyKicks--;
+	}
+
+	std::cout << "The final score is " << teams[0].name << " " << teams[0].record.points << " - " << teams[1].record.
+		points << " " << teams[1].name << std::endl;
+}
+
 std::vector<Team> Group::playKnockoutMatch()
 {
+	// reset team points from group stage
+	teams[0].record.points = 0;
+	teams[1].record.points = 0;
+
 	std::cout << "-----------------------------------------------" << std::endl;
 	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
 	std::cout << "-----------------------------------------------" << std::endl;
@@ -137,8 +178,11 @@ std::vector<Team> Group::playKnockoutMatch()
 
 	simulateMatch();
 
-	// TODO: implement penalty shootout simulation
-	// if scores are tied after match, simulate penalty shootout
+	// tiebreaker
+	if (teams[0].record.points == teams[1].record.points)
+	{
+		penaltyShootout();
+	}
 
 	// put winner at index 0
 	for (int i = 0; i < static_cast<int>(teams.size()); i++)
@@ -151,6 +195,8 @@ std::vector<Team> Group::playKnockoutMatch()
 			}
 		}
 	}
+
+	std::cout << teams[0].record.points << " - " << teams[1].record.points << std::endl;
 
 	std::cout << "-----------------------------------------------" << std::endl;
 	std::cout << teams[0].name << " Moves on to the Quarterfinals" << std::endl;
