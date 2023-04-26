@@ -165,7 +165,7 @@ void Group::penaltyShootout()
 		points << " " << teams[1].name << std::endl;
 }
 
-std::vector<Team> Group::playKnockoutMatch()
+Team Group::playKnockoutMatch()
 {
 	// reset team points from group stage
 	teams[0].record.points = 0;
@@ -204,5 +204,5 @@ std::vector<Team> Group::playKnockoutMatch()
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	return teams;
+	return teams[0];
 }
