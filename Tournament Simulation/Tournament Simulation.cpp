@@ -10,8 +10,8 @@ int main()
 {
 	welcome();
 
+	// seed the top 8 teams into seperate groups
 	std::vector<Team> seededTeams;
-
 	for (int i = 0; i < 8; i++)
 	{
 		seededTeams.push_back(teams[i]);
@@ -20,9 +20,9 @@ int main()
 	teams.erase(teams.begin(), teams.begin() + 8);
 	teams.shrink_to_fit();
 
+	// create group stage groups
 	std::vector<Group> groups;
 	int groupIndex = 0;
-
 	for (int i = 0; i < 8; i++)
 	{
 		Group group;
@@ -48,8 +48,9 @@ int main()
 		}
 	}
 
+	// play the group stage
+	// the teams that advance to the knockout stage are stored in a vector
 	std::vector<Team> teamsThatAdvanceGroupStage;
-
 	for (int i = 0; i < 8; i++)
 	{
 		const std::vector<Team> teams = groups[i].playGroupMatch();
@@ -57,8 +58,8 @@ int main()
 		teamsThatAdvanceGroupStage.push_back(teams[1]);
 	}
 
+	// create the knockout groups using the teams that advanced from the group stage
 	std::vector<Group> knockoutGroups;
-
 	for (int i = 0; i < 8; i++)
 	{
 		Group group;
