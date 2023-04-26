@@ -20,13 +20,35 @@ int Group::simulateGoals(const double avgGoals)
 	return dist(rng);
 };
 
-std::vector<Team> Group::playGroupMatch()
+void Group::checkForTies()
 {
-	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
-	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << std::endl;
+	// sort teams by points
+	std::sort(teams.begin(), teams.end(),
+	          [](const Team& a, const Team& b) { return a.record.points > b.record.points; });
 
+	// tiebreakers
+	// 1. goal difference
+
+	for (int i = 0; i < static_cast<int>(teams.size()); i++)
+	{
+		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
+		{
+			// check if teams have the same number of points
+			if (teams[i].record.points == teams[j].record.points)
+			{
+				if (teams[i].record.goalDifference < teams[j].record.goalDifference)
+				{
+					std::swap(teams[i], teams[j]);
+				}
+			}
+		}
+	}
+
+	// TODO: implement other tiebreakers here for a more accurate simulation
+}
+
+void Group::simulateMatch()
+{
 	for (int i = 0; i < static_cast<int>(teams.size()); i++)
 	{
 		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
@@ -83,30 +105,17 @@ std::vector<Team> Group::playGroupMatch()
 			}
 		}
 	}
+}
 
-	// sort teams by points
-	std::sort(teams.begin(), teams.end(),
-	          [](const Team& a, const Team& b) { return a.record.points > b.record.points; });
+std::vector<Team> Group::playGroupMatch()
+{
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
 
-	// tiebreakers
-	// 1. goal difference
-
-	for (int i = 0; i < static_cast<int>(teams.size()); i++)
-	{
-		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
-		{
-			// check if teams have the same number of points
-			if (teams[i].record.points == teams[j].record.points)
-			{
-				if (teams[i].record.goalDifference < teams[j].record.goalDifference)
-				{
-					std::swap(teams[i], teams[j]);
-				}
-			}
-		}
-	}
-
-	// TODO: implement other tiebreakers here for a more accurate simulation
+	simulateMatch();
+	checkForTies();
 
 	for (int i = 0; i < 2; i++)
 	{
