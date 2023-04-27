@@ -56,6 +56,7 @@ void Group::simulateMatch()
 			std::cout << teams[i].name << " vs " << teams[j].name << std::endl;
 
 			constexpr double avgGoals = 2.69; // Average goals per game in the 2022 World Cup
+			// TODO: use the teams actual average goals per game instead of the average goals per game in the 2022 World Cup
 
 			const int goalsI = simulateGoals(avgGoals);
 			const int goalsJ = simulateGoals(avgGoals);
