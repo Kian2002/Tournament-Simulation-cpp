@@ -82,7 +82,7 @@ int main()
 
 	// Commence Round of 16
 	roundOf16(); // print the round of 16 title
-	std::vector<Team> teamsThatAdvanceRoundOf16(8);
+	std::vector<Team> teamsThatAdvanceRoundOf16;
 	for (Group group : knockoutGroups)
 	{
 		Team team = group.playKnockoutMatch();
