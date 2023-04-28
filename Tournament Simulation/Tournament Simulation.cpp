@@ -85,8 +85,32 @@ int main()
 	std::vector<Team> teamsThatAdvanceRoundOf16;
 	for (Group group : knockoutGroups)
 	{
-		Team team = group.playKnockoutMatch();
+		Team team = group.playKnockoutMatch("Quarter Finals");
 		teamsThatAdvanceRoundOf16.push_back(team);
+	}
+
+	// Quarter Finals Groups
+	std::vector<Group> quarterFinalsGroups;
+	for (int i = 0; i < static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2); i++)
+	{
+		Group group;
+		group.name = i + 1;
+		quarterFinalsGroups.push_back(group);
+	}
+
+	// Add the teams that advance to the quarter finals to the quarter finals groups
+	for (int i = 0; i < quarterFinalsGroups.size(); i++)
+	{
+		quarterFinalsGroups[i].teams.push_back(teamsThatAdvanceRoundOf16[i * 2]);
+		quarterFinalsGroups[i].teams.push_back(teamsThatAdvanceRoundOf16[i * 2 + 1]);
+	}
+
+	//Commence Quarter Finals
+	std::vector<Team> teamsThatAdvanceQuarterFinals;
+	for (Group group : quarterFinalsGroups)
+	{
+		Team team = group.playKnockoutMatch("Semi Finals");
+		teamsThatAdvanceQuarterFinals.push_back(team);
 	}
 }
 
