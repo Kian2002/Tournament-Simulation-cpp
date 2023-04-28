@@ -166,7 +166,7 @@ void Group::penaltyShootout()
 		points << " " << teams[1].name << std::endl;
 }
 
-Team Group::playKnockoutMatch()
+Team Group::playKnockoutMatch(const std::string& title)
 {
 	// reset team points from group stage
 	teams[0].record.points = 0;
@@ -200,7 +200,7 @@ Team Group::playKnockoutMatch()
 	std::cout << teams[0].record.points << " - " << teams[1].record.points << std::endl;
 
 	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << teams[0].name << " Moves on to the Quarterfinals" << std::endl;
+	std::cout << teams[0].name << " Moves on to the " << title << std::endl;
 	std::cout << "-----------------------------------------------" << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
