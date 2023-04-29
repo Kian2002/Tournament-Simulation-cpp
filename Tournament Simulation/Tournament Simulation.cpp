@@ -5,6 +5,7 @@
 
 void welcome();
 void roundOf16();
+std::vector<Group> createGroup(int size);
 
 int main()
 {
@@ -59,13 +60,7 @@ int main()
 	}
 
 	// create the knockout groups using the teams that advanced from the group stage
-	std::vector<Group> knockoutGroups;
-	for (int i = 0; i < 8; i++)
-	{
-		Group group;
-		group.name = i + 1;
-		knockoutGroups.push_back(group);
-	}
+	std::vector<Group> knockoutGroups = createGroup(static_cast<int>(teamsThatAdvanceGroupStage.size() / 2));
 
 	// add the teams that advance to the knockout stage to the knockout groups
 	// the teams are added in the following order by index:
@@ -90,13 +85,7 @@ int main()
 	}
 
 	// Quarter Finals Groups
-	std::vector<Group> quarterFinalsGroups;
-	for (int i = 0; i < static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2); i++)
-	{
-		Group group;
-		group.name = i + 1;
-		quarterFinalsGroups.push_back(group);
-	}
+	std::vector<Group> quarterFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2));
 
 	// Add the teams that advance to the quarter finals to the quarter finals groups
 	for (int i = 0; i < quarterFinalsGroups.size(); i++)
@@ -114,13 +103,7 @@ int main()
 	}
 
 	// Semi Finals Groups
-	std::vector<Group> semiFinalsGroups;
-	for (int i = 0; i < 2; i++)
-	{
-		Group group;
-		group.name = i + 1;
-		semiFinalsGroups.push_back(group);
-	}
+	std::vector<Group> semiFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceQuarterFinals.size() / 2));
 
 	// Add the teams that advance to the semi finals to the semi finals groups
 	for (int i = 0; i < teamsThatAdvanceQuarterFinals.size() / 2; i++)
@@ -149,6 +132,20 @@ int main()
 	}
 
 	thirdPlaceGroup.playThirdplaceMatch();
+}
+
+std::vector<Group> createGroup(int size)
+{
+	std::vector<Group> groups;
+
+	for (int i = 0; i < size; i++)
+	{
+		Group group;
+		group.name = i + 1;
+		groups.push_back(group);
+	}
+
+	return groups;
 }
 
 void welcome()
