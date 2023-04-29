@@ -6,6 +6,8 @@
 void welcome();
 void roundOf16();
 std::vector<Group> createGroup(int size);
+void addTeams(const std::vector<Group>& group, const std::vector<Team>& teamsToAdd);
+
 
 int main()
 {
@@ -86,13 +88,7 @@ int main()
 
 	// Quarter Finals Groups
 	std::vector<Group> quarterFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2));
-
-	// Add the teams that advance to the quarter finals to the quarter finals groups
-	for (int i = 0; i < quarterFinalsGroups.size(); i++)
-	{
-		quarterFinalsGroups[i].teams.push_back(teamsThatAdvanceRoundOf16[i * 2]);
-		quarterFinalsGroups[i].teams.push_back(teamsThatAdvanceRoundOf16[i * 2 + 1]);
-	}
+	addTeams(quarterFinalsGroups, teamsThatAdvanceRoundOf16);
 
 	//Commence Quarter Finals
 	std::vector<Team> teamsThatAdvanceQuarterFinals;
@@ -104,13 +100,7 @@ int main()
 
 	// Semi Finals Groups
 	std::vector<Group> semiFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceQuarterFinals.size() / 2));
-
-	// Add the teams that advance to the semi finals to the semi finals groups
-	for (int i = 0; i < teamsThatAdvanceQuarterFinals.size() / 2; i++)
-	{
-		semiFinalsGroups[i].teams.push_back(teamsThatAdvanceQuarterFinals[i * 2]);
-		semiFinalsGroups[i].teams.push_back(teamsThatAdvanceQuarterFinals[i * 2 + 1]);
-	}
+	addTeams(semiFinalsGroups, teamsThatAdvanceQuarterFinals);
 
 	// Commence Semi Finals
 	std::vector<Team> teamsThatAdvanceSemiFinals;
@@ -146,6 +136,15 @@ std::vector<Group> createGroup(int size)
 	}
 
 	return groups;
+}
+
+void addTeams(const std::vector<Group>& group, const std::vector<Team>& teamsToAdd)
+{
+	for (int i = 0; i < group.size(); i++)
+	{
+		group[i].teams.push_back(teamsToAdd[i * 2]);
+		group[i].teams.push_back(teamsToAdd[i * 2 + 1]);
+	}
 }
 
 void welcome()
