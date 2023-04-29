@@ -112,6 +112,30 @@ int main()
 		Team team = group.playKnockoutMatch("Semi Finals");
 		teamsThatAdvanceQuarterFinals.push_back(team);
 	}
+
+	// Semi Finals Groups
+	std::vector<Group> semiFinalsGroups;
+	for (int i = 0; i < 2; i++)
+	{
+		Group group;
+		group.name = i + 1;
+		semiFinalsGroups.push_back(group);
+	}
+
+	// Add the teams that advance to the semi finals to the semi finals groups
+	for (int i = 0; i < teamsThatAdvanceQuarterFinals.size() / 2; i++)
+	{
+		semiFinalsGroups[i].teams.push_back(teamsThatAdvanceQuarterFinals[i * 2]);
+		semiFinalsGroups[i].teams.push_back(teamsThatAdvanceQuarterFinals[i * 2 + 1]);
+	}
+
+	// Commence Semi Finals
+	std::vector<Team> teamsThatAdvanceSemiFinals;
+	for (int i = 0; i < 2; i++)
+	{
+		Team team = semiFinalsGroups[i].playKnockoutMatch("Final");
+		teamsThatAdvanceSemiFinals.push_back(team);
+	}
 }
 
 void welcome()
