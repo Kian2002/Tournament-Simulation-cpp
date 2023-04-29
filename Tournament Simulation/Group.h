@@ -9,7 +9,7 @@ class Group
 public:
 	Group();
 	Group(const std::vector<Team>& teams);
-	std::vector<Team> teams;
+	mutable std::vector<Team> teams;
 	std::vector<Team> playGroupMatch();
 	Team playKnockoutMatch(const std::string& title);
 	int simulateGoals(double avgGoals);
