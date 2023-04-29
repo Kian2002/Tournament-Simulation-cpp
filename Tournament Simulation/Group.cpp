@@ -207,3 +207,42 @@ Team Group::playKnockoutMatch(const std::string& title)
 
 	return teams[0];
 }
+
+void Group::playThirdplaceMatch()
+{
+	// reset team points from group stage
+	teams[0].record.points = 0;
+	teams[1].record.points = 0;
+
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << "---------------Third Place Match---------------" << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+
+	simulateMatch();
+
+	// tiebreaker
+	if (teams[0].record.points == teams[1].record.points)
+	{
+		penaltyShootout();
+	}
+
+	// put winner at index 0
+	for (int i = 0; i < static_cast<int>(teams.size()); i++)
+	{
+		for (int j = i + 1; j < static_cast<int>(teams.size()); j++)
+		{
+			if (teams[i].record.points < teams[j].record.points)
+			{
+				std::swap(teams[i], teams[j]);
+			}
+		}
+	}
+
+	std::cout << teams[0].record.points << " - " << teams[1].record.points << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << teams[0].name << " Has placed 3rd" << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+}

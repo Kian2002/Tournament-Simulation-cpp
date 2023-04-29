@@ -16,5 +16,6 @@ public:
 	void checkForTies();
 	void simulateMatch();
 	void penaltyShootout();
+	void playThirdplaceMatch();
 	int name;
 };

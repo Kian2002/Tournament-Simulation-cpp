@@ -136,6 +136,19 @@ int main()
 		Team team = semiFinalsGroups[i].playKnockoutMatch("Final");
 		teamsThatAdvanceSemiFinals.push_back(team);
 	}
+
+	// Third Place Match
+	Group thirdPlaceGroup;
+	for (int i = 0; i < teamsThatAdvanceQuarterFinals.size(); i++)
+	{
+		if (teamsThatAdvanceQuarterFinals[i].name != teamsThatAdvanceSemiFinals[0].name && teamsThatAdvanceQuarterFinals
+			[i].name != teamsThatAdvanceSemiFinals[1].name)
+		{
+			thirdPlaceGroup.teams.push_back(teamsThatAdvanceQuarterFinals[i]);
+		}
+	}
+
+	thirdPlaceGroup.playThirdplaceMatch();
 }
 
 void welcome()
