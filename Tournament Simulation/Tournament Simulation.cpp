@@ -43,7 +43,7 @@ int main()
 	std::shuffle(teams.begin(), teams.end(), rng);
 
 	// add the remaining teams to the groups
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < static_cast<int>(groups.size()); i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
@@ -54,11 +54,11 @@ int main()
 	// play the group stage
 	// the teams that advance to the knockout stage are stored in a vector
 	std::vector<Team> teamsThatAdvanceGroupStage;
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < static_cast<int>(groups.size()); i++)
 	{
-		const std::vector<Team> teams = groups[i].playGroupMatch();
-		teamsThatAdvanceGroupStage.push_back(teams[0]);
-		teamsThatAdvanceGroupStage.push_back(teams[1]);
+		const std::vector<Team> returnedTeams = groups[i].playGroupMatch();
+		teamsThatAdvanceGroupStage.push_back(returnedTeams[0]);
+		teamsThatAdvanceGroupStage.push_back(returnedTeams[1]);
 	}
 
 	// create the knockout groups using the teams that advanced from the group stage
@@ -68,7 +68,7 @@ int main()
 	// the teams are added in the following order by index:
 	// (0,3) (4,7) (8,11) (12,15) (1,2) (5,6) (9,10) (13,14)
 	int team_index = 0;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < static_cast<int>(knockoutGroups.size()) / 2; i++)
 	{
 		knockoutGroups[i].teams.push_back(teamsThatAdvanceGroupStage[team_index]);
 		knockoutGroups[i].teams.push_back(teamsThatAdvanceGroupStage[team_index + 3]);
@@ -112,7 +112,7 @@ int main()
 
 	// Third Place Match
 	Group thirdPlaceGroup;
-	for (int i = 0; i < teamsThatAdvanceQuarterFinals.size(); i++)
+	for (int i = 0; i < static_cast<int>(teamsThatAdvanceQuarterFinals.size()); i++)
 	{
 		if (teamsThatAdvanceQuarterFinals[i].name != teamsThatAdvanceSemiFinals[0].name && teamsThatAdvanceQuarterFinals
 			[i].name != teamsThatAdvanceSemiFinals[1].name)
@@ -140,7 +140,7 @@ std::vector<Group> createGroup(int size)
 
 void addTeams(const std::vector<Group>& group, const std::vector<Team>& teamsToAdd)
 {
-	for (int i = 0; i < group.size(); i++)
+	for (int i = 0; i < static_cast<int>(group.size()); i++)
 	{
 		group[i].teams.push_back(teamsToAdd[i * 2]);
 		group[i].teams.push_back(teamsToAdd[i * 2 + 1]);
