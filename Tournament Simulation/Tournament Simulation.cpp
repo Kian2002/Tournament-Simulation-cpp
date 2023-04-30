@@ -72,26 +72,25 @@ int main()
 		team_index += 4;
 	}
 
-	// Commence Round of 16
+	// Play Round of 16
 	roundOf16(); // print the round of 16 title
 	std::vector<Team> teamsThatAdvanceRoundOf16 = startKnockoutMatch(knockoutGroups, "Quarter Finals");
 
 	// Quarter Finals Groups
 	std::vector<Group> quarterFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2));
 	addTeams(quarterFinalsGroups, teamsThatAdvanceRoundOf16);
-
-	//Commence Quarter Finals
+	// Play Quarter Finals
 	std::vector<Team> teamsThatAdvanceQuarterFinals = startKnockoutMatch(quarterFinalsGroups, "Semi Finals");
 
 	// Semi Finals Groups
 	std::vector<Group> semiFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceQuarterFinals.size() / 2));
 	addTeams(semiFinalsGroups, teamsThatAdvanceQuarterFinals);
-
-	// Commence Semi Finals
+	// Play Semi Finals
 	std::vector<Team> teamsThatAdvanceSemiFinals = startKnockoutMatch(semiFinalsGroups, "Finals");
 
 	// Third Place Match
 	Group thirdPlaceGroup;
+	// add the teams that did not advance to the finals to the third place group
 	for (int i = 0; i < static_cast<int>(teamsThatAdvanceQuarterFinals.size()); i++)
 	{
 		if (teamsThatAdvanceQuarterFinals[i].name != teamsThatAdvanceSemiFinals[0].name && teamsThatAdvanceQuarterFinals
