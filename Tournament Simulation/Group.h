@@ -1,7 +1,5 @@
 #pragma once
 #include <vector>
-#include <iostream>
-
 #include "Team.h"
 
 class Group
@@ -16,6 +14,6 @@ public:
 	void checkForTies();
 	void simulateMatch();
 	void penaltyShootout();
-	void playThirdplaceMatch();
+	void header();
 	int name;
 };
