@@ -10,4 +10,5 @@ struct Record
 	int goalDifference = goalsFor - goalsAgainst;
 	int points = 0;
 	double rating = 0;
+	double avgGoals = 0;
 };

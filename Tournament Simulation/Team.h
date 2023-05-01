@@ -7,7 +7,7 @@ class Team
 {
 public:
 	Team();
-	Team(const std::string& name, double rating);
+	Team(const std::string& name, double rating, double avgGoals);
 	std::string name;
 	Record record;
 };
