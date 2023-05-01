@@ -3,6 +3,8 @@
 #include "Group.h"
 #include "TeamData.h"
 
+#include <iostream>
+
 void welcome();
 void roundOf16();
 std::vector<Group> createGroup(int size);
@@ -59,7 +61,7 @@ int main()
 	}
 
 	// create the round of 16 groups using the teams that advanced from the group stage
-	std::vector<Group> knockoutGroups = createGroup(static_cast<int>(teamsThatAdvanceGroupStage.size() / 2));
+	std::vector<Group> knockoutGroups = createGroup(teamsThatAdvanceGroupStage.size() / 2);
 
 	// the teams are added in the following order by index: (0,3) (4,7) (8,11) (12,15) (1,2) (5,6) (9,10) (13,14)
 	int team_index = 0;
@@ -74,22 +76,24 @@ int main()
 
 	// Play Round of 16
 	roundOf16(); // print the round of 16 title
-	std::vector<Team> teamsThatAdvanceRoundOf16 = startKnockoutMatch(knockoutGroups, "Quarter Finals");
+	std::vector<Team> teamsThatAdvanceRoundOf16 = startKnockoutMatch(knockoutGroups, " Moves on to the quarter-finals");
 
 	// Quarter Finals Groups
-	std::vector<Group> quarterFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceRoundOf16.size() / 2));
+	std::vector<Group> quarterFinalsGroups = createGroup(teamsThatAdvanceRoundOf16.size() / 2);
 	addTeams(quarterFinalsGroups, teamsThatAdvanceRoundOf16);
 	// Play Quarter Finals
-	std::vector<Team> teamsThatAdvanceQuarterFinals = startKnockoutMatch(quarterFinalsGroups, "Semi Finals");
+	std::vector<Team> teamsThatAdvanceQuarterFinals = startKnockoutMatch(
+		quarterFinalsGroups, " Moves on to the semi-finals");
 
 	// Semi Finals Groups
-	std::vector<Group> semiFinalsGroups = createGroup(static_cast<int>(teamsThatAdvanceQuarterFinals.size() / 2));
+	std::vector<Group> semiFinalsGroups = createGroup(teamsThatAdvanceQuarterFinals.size() / 2);
 	addTeams(semiFinalsGroups, teamsThatAdvanceQuarterFinals);
 	// Play Semi Finals
-	std::vector<Team> teamsThatAdvanceSemiFinals = startKnockoutMatch(semiFinalsGroups, "Finals");
+	std::vector<Team> teamsThatAdvanceSemiFinals = startKnockoutMatch(semiFinalsGroups, " Moves on to the finals!");
 
 	// Third Place Match
 	Group thirdPlaceGroup;
+	thirdPlaceGroup.name = "---------------Third Place Match---------------";
 	// add the teams that did not advance to the finals to the third place group
 	for (int i = 0; i < static_cast<int>(teamsThatAdvanceQuarterFinals.size()); i++)
 	{
@@ -100,7 +104,14 @@ int main()
 		}
 	}
 
-	thirdPlaceGroup.playThirdplaceMatch();
+	thirdPlaceGroup.playKnockoutMatch(" Has place in third place!");
+
+	// Finals
+	Group finalsGroup;
+	finalsGroup.name = "------------------Final Match------------------";
+	finalsGroup.teams.push_back(teamsThatAdvanceSemiFinals[0]);
+	finalsGroup.teams.push_back(teamsThatAdvanceSemiFinals[1]);
+	finalsGroup.playKnockoutMatch(" Has Won the FIFA WORLD CUP!!!!!!!");
 }
 
 std::vector<Group> createGroup(int size)
@@ -110,7 +121,9 @@ std::vector<Group> createGroup(int size)
 	for (int i = 0; i < size; i++)
 	{
 		Group group;
-		group.name = i + 1;
+		const std::string groupName = "--------------------Group ";
+		const char letter = static_cast<char>(i + 65);
+		group.name = groupName + letter + "--------------------";
 		groups.push_back(group);
 	}
 
