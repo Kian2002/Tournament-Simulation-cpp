@@ -15,8 +15,17 @@ Group::Group(const std::vector<Team>& teams)
 void Group::header()
 {
 	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << "--------------------Group " << name << "--------------------" << std::endl;
+	std::cout << name << std::endl;
 	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+}
+
+void Group::footer(std::string title)
+{
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << teams[0].name << title << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
 	std::cout << std::endl;
 }
 
@@ -197,11 +206,7 @@ Team Group::playKnockoutMatch(const std::string& title)
 		}
 	}
 
-	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << teams[0].name << title << std::endl;
-	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
+	footer(title);
 
 	return teams[0];
 }

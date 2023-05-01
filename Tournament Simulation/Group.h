@@ -15,5 +15,6 @@ public:
 	void simulateMatch();
 	void penaltyShootout();
 	void header();
-	int name;
+	void footer(std::string title);
+	std::string name;
 };
