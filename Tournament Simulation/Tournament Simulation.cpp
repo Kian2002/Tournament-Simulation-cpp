@@ -112,6 +112,8 @@ int main()
 	finalsGroup.teams.push_back(teamsThatAdvanceSemiFinals[0]);
 	finalsGroup.teams.push_back(teamsThatAdvanceSemiFinals[1]);
 	finalsGroup.playKnockoutMatch(" Has Won the FIFA WORLD CUP!!!!!!!");
+
+	return 0;
 }
 
 std::vector<Group> createGroup(int size)
